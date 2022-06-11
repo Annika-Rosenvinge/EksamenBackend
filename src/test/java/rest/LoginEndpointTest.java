@@ -222,23 +222,4 @@ public class LoginEndpointTest {
                 .body("message", equalTo("Not authenticated - do login"));
     }
 
-    @Test
-    void pokemon() {
-        login("user_admin", "test");
-        given()
-                .contentType("application/json")
-                .when()
-                .get("info/pokemon").then()
-                .statusCode(200);
-    }
-
-    @Test
-    void swapi() {
-        login("user_admin", "test");
-        given()
-                .contentType("application/json")
-                .when()
-                .get("info/swapi").then()
-                .statusCode(200);
-    }
 }
