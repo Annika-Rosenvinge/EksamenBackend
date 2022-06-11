@@ -47,7 +47,7 @@ public class UserFacadeTest {
         user2.addRole(role2);
         try{
             em.getTransaction().begin();
-            //em.createNamedQuery("Users.DeleteAll").executeUpdate();
+            em.createNamedQuery("Users.DeleteAll").executeUpdate();
             em.persist(user);
             em.persist(user2);
             em.getTransaction().commit();

@@ -10,7 +10,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
 @Table(name = "user")
-//@NamedQuery(name = "Users.DeleteAll", query = "DELETE FROM user")
+@NamedQuery(name = "Users.DeleteAll", query = "DELETE FROM User")
 public class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
