@@ -117,6 +117,7 @@ public class MatchFacadeTest {
         assertEquals(expected, actual);
     }
 
+    @Disabled
     @Test
     public void createMatchTest2() throws NotFoundException{
 
