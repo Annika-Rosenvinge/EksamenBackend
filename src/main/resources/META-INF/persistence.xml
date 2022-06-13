@@ -27,7 +27,7 @@
             <!-- In PRODUCTION the values below, will be overriden by utils.EMF_Creator -->
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/eksamen?serverTimezone=UTC"/>
             <property name="javax.persistence.jdbc.user" value="Annik"/>
-            <property name="javax.persistence.jdbc.password" value="Flagremus_1313"/>
+            <property name="javax.persistence.jdbc.password" value="Flagremus13"/>
             
         </properties>
     </persistence-unit>
