@@ -1,27 +1,33 @@
+
+
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+
+
 
 @Entity
 @Table(name = "location")
+@NamedQuery(name="Location.deleteAll", query = "DELETE FROM Location l")
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "locationname", nullable = false)
     private String name;
     @Column(name = "address", nullable = false)
     private String address;
     @Column(name = "city", nullable = false)
     private String city;
-    @Column(name = "condition", nullable = false, length = 1000)
+    @Column(name = "cond", nullable = false, length = 1000)
     private String condition;
 
     //relations
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
-    private List<Match> matches;
+    private List<Match> matches = new ArrayList<>();
 
     //constructors
     public Location(){

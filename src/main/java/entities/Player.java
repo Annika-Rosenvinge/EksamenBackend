@@ -15,12 +15,11 @@ public class Player {
     private Integer phone;
     @Column(name = "email", nullable = false)
     private String email;
-    @Column(name = "status", nullable = false)
+    @Column(name = "playerstatus", nullable = false)
     private String status;
 
     //relations
     @ManyToOne
-    @JoinColumn(name = "playersOnTeam")
     private Team team;
 
     //constructors

@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class Team {
 
     //team har players
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
-    private List<Player> playersOnTeam;
+    private List<Player> playersOnTeam = new ArrayList<>();
 
     @ManyToMany(mappedBy = "teams")
     private List<Match> matches;
@@ -87,6 +88,14 @@ public class Team {
 
     public void setPlayersOnTeam(List<Player> playersOnTeam) {
         this.playersOnTeam = playersOnTeam;
+    }
+
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
     }
 
     @Override

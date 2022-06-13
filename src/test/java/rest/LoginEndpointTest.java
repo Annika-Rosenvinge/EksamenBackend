@@ -117,7 +117,7 @@ public class LoginEndpointTest {
     }
 
     @Test
-    public void testRestNoAuthenticationRequired() {
+    public void restNoAuthenticationRequiredTest() {
         given()
                 .contentType("application/json")
                 .when()
@@ -127,7 +127,7 @@ public class LoginEndpointTest {
     }
 
     @Test
-    public void testRestForAdmin() {
+    public void restForAdminTest() {
         login("admin", "test");
         given()
                 .contentType("application/json")
@@ -140,7 +140,7 @@ public class LoginEndpointTest {
     }
 
     @Test
-    public void testRestForUser() {
+    public void restForUserTest() {
         login("user", "test");
         given()
                 .contentType("application/json")
@@ -152,7 +152,7 @@ public class LoginEndpointTest {
     }
 
     @Test
-    public void testAutorizedUserCannotAccesAdminPage() {
+    public void autorizedUserCannotAccesAdminPageTest() {
         login("user", "test");
         given()
                 .contentType("application/json")
@@ -163,7 +163,7 @@ public class LoginEndpointTest {
     }
 
     @Test
-    public void testAutorizedAdminCannotAccesUserPage() {
+    public void autorizedAdminCannotAccesUserPageTest() {
         login("admin", "test");
         given()
                 .contentType("application/json")
@@ -210,16 +210,5 @@ public class LoginEndpointTest {
                 .body("message", equalTo("Not authenticated - do login"));
     }
 
-    @Test
-    public void adminNotAuthenticated() {
-        logOut();
-        given()
-                .contentType("application/json")
-                .when()
-                .get("/info/user").then()
-                .statusCode(403)
-                .body("code", equalTo(403))
-                .body("message", equalTo("Not authenticated - do login"));
-    }
 
 }

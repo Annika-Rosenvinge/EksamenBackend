@@ -39,7 +39,7 @@ public class Resource {
         return "{\"msg\":\"Hello anonymous\"}";
     }
 
-    //Just to verify if the database is setup
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("all")
@@ -73,31 +73,4 @@ public class Resource {
         return "{\"msg\": \"Hello to (admin) User: " + thisuser + "\"}";
     }
 
-
-    /*private JsonObject getNoUrl(String sentUrl) {
-        try {
-            URL url = new URL(sentUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            System.out.println("conn");
-            System.out.println(conn);
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("User-Agent", "server");
-            conn.setRequestProperty("Accept", "application/json;charset=UTF-8");
-            if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP Error code : "
-                        + conn.getResponseCode());
-            }
-            InputStreamReader in = new InputStreamReader(conn.getInputStream());
-            BufferedReader br = new BufferedReader(in);
-            String output = br.readLine();
-            JsonObject convertedObject = new Gson().fromJson(output, JsonObject.class);
-            conn.disconnect();
-            return convertedObject;
-
-        } catch (Exception e) {
-            System.out.println("Exception in NetClientGet:- " + e);
-            JsonObject error = new Gson().fromJson(new Gson().toJson(e), JsonObject.class);
-            return error;
-        }
-    }*/
 }

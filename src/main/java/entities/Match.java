@@ -2,10 +2,12 @@ package entities;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "match")
+@Table(name = "matches")
+@NamedQuery(name = "Match.deleteAll", query = "DELETE FROM Match m")
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,9 +15,9 @@ public class Match {
     private Integer id;
     @Column(name = "jugde", nullable = false)
     private String judge;
-    @Column(name = "type", nullable = false)
+    @Column(name = "matchtype", nullable = false)
     private String type;
-    @Column(name = "inddors_outdoors")
+    @Column(name = "Indoorsoutdoors")
     private String indoors_outdoors;
 
     //relations
@@ -24,10 +26,10 @@ public class Match {
             @JoinColumn(name = "match_id", referencedColumnName = "match_id")}, inverseJoinColumns ={
             @JoinColumn(name = "team_id", referencedColumnName = "team_id")
     })
-    private List<Team> teams;
+    private List<Team> teams = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "matches")
+    @JoinColumn(name = "location_id")
     private Location location;
 
     //constructors
@@ -67,7 +69,11 @@ public class Match {
     //add func
     public void addTeam(Team team){
         teams.add(team);
+        List<Match> m = new ArrayList<>();
+        m.add(this);
+        team.setMatches(m);
     }
+
 
     //gettere settere
     public Integer getId() {
