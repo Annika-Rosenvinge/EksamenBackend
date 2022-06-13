@@ -14,6 +14,8 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MatchFacadeTest {
 
@@ -106,7 +108,7 @@ public class MatchFacadeTest {
 
         assertEquals(expected, actual);
     }
-/*
+
     @Test
     public void createTeamTest(){
         TeamDTO teamDTO = new TeamDTO("Fede finn og foldbold bois", "Roskilde");
@@ -124,5 +126,20 @@ public class MatchFacadeTest {
         String expected = team.getName();
         TeamDTO teamDTO = MATCHFACADE.addPlayerToTeam(playerId, teamId);
         String actual = teamDTO.getName();
-    }*/
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void addMulPlayers(){
+        List<Player> players = new ArrayList<>();
+        players.add(player2);
+        players.add(player3);
+        players.add(player4);
+
+        String expected = team.getName();
+        TeamDTO teamDTO = MATCHFACADE.addMulPlayersToTeam(players, team.getId());
+        String actual = teamDTO.getName();
+        assertEquals(expected,actual);
+    }
 }
