@@ -34,6 +34,7 @@ public class ApplicationConfig extends Application {
         resources.add(security.errorhandling.NotAuthorizedExceptionMapper.class);
 
         //husk de sidste resources
+        resources.add(MatchResource.class);
     }
     
 }
