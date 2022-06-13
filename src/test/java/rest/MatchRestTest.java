@@ -67,6 +67,10 @@ public class MatchRestTest {
         }
     }
 
+    private static void seeMatchesForTeam (){
+
+    }
+
     @Test
     public void seeAllMatchesTest(){
         given()
@@ -74,6 +78,7 @@ public class MatchRestTest {
                 .get("/matches/all").then()
                 .statusCode(200);
     }
+
 
     /*
     @Test

@@ -25,7 +25,7 @@ public class LocationDTO {
         this.condition = condition;
     }
 
-    /*public LocationDTO(Location location){
+    public LocationDTO(Location location){
         this.name = location.getName();
         this.address = location.getAddress();
         this.city = location.getCity();
@@ -33,7 +33,7 @@ public class LocationDTO {
         if(location.getMatches() != null){
             this.matches = location.getMatches();
         }
-    }*/
+    }
 
     //DTOS as list
     /*public static List<LocationDTO> getDTOS(List<Location> locations){

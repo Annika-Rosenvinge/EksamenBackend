@@ -152,28 +152,6 @@ public class LoginEndpointTest {
     }
 
     @Test
-    public void autorizedUserCannotAccesAdminPageTest() {
-        login("user", "test");
-        given()
-                .contentType("application/json")
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/info/admin").then() //Call Admin endpoint as user
-                .statusCode(401);
-    }
-
-    @Test
-    public void autorizedAdminCannotAccesUserPageTest() {
-        login("admin", "test");
-        given()
-                .contentType("application/json")
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/info/user").then() //Call User endpoint as Admin
-                .statusCode(401);
-    }
-
-    @Test
     public void testRestForMultiRole1() {
         login("user_admin", "test");
         given()
@@ -209,6 +187,8 @@ public class LoginEndpointTest {
                 .body("code", equalTo(403))
                 .body("message", equalTo("Not authenticated - do login"));
     }
+
+
 
 
 }

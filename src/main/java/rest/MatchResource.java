@@ -45,20 +45,20 @@ public class MatchResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/createplayer/{id}")
-    public String createPlayer(@PathParam("id") String player, Integer id) throws NotFoundException {
+    @Path("/createplayer")
+    public String createPlayer(String player) throws NotFoundException {
         PlayerDTO playerDTO = GSON.fromJson(player, PlayerDTO.class);
-        PlayerDTO created = FACADE.createPlayer(playerDTO, id);
+        PlayerDTO created = FACADE.createPlayer(playerDTO);
         return GSON.toJson(created);
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/creatematch/{id}")
-    public String createMatch(@PathParam("id") String match, Integer id) throws NotFoundException {
+    @Path("/creatematch/{locationid}")
+    public String createMatch( String match, @PathParam("locationid") Integer locationid) throws NotFoundException {
         MatchDTO matchDTO= GSON.fromJson(match, MatchDTO.class);
-        MatchDTO created = FACADE.createMatch(matchDTO, id);
+        MatchDTO created = FACADE.createMatch(matchDTO, locationid);
         return GSON.toJson(created);
     }
 
@@ -72,4 +72,12 @@ public class MatchResource {
         return GSON.toJson(created);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/seematchesforteam/{id}")
+    public String seeMatchesForTeam(@PathParam("id") Integer id){
+        List<MatchDTO> matchDTOList = FACADE.seeMatchesForTeam(id);
+        return GSON.toJson(matchDTOList);
+    }
 }

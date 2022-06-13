@@ -4,6 +4,7 @@ import dtos.*;
 import entities.*;
 import errorhandling.NotFoundException;
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
@@ -49,16 +50,11 @@ public class MatchFacade {
     }
 
     //create player - us4
-    public PlayerDTO createPlayer(PlayerDTO playerDTO, Integer team_id) throws NotFoundException {
+    public PlayerDTO createPlayer(PlayerDTO playerDTO) throws NotFoundException {
         EntityManager em = emf.createEntityManager();
         try{
-            Team team = em.find(Team.class, team_id);
-            if (team == null) {
-                throw new NotFoundException("no team found with the id " + team_id );
-            }
             Player player = new Player(playerDTO.getName(), playerDTO.getPhone(),
-                    playerDTO.getEmail(), playerDTO.getStatus(), team);
-            team.addPlayer(player);
+                    playerDTO.getEmail(), playerDTO.getStatus());
             em.getTransaction().begin();
             em.persist(player);
             em.getTransaction().commit();
@@ -78,8 +74,39 @@ public class MatchFacade {
             if(location == null){
                 throw new NotFoundException("there is no location with the given id");
             }
+
             Match match = new Match(matchDTO.getJudge(), matchDTO.getType(), matchDTO.getIndoors_outdoors(), location);
             location.addMatch(match);
+
+            em.getTransaction().begin();
+            em.persist(match);
+            em.getTransaction().commit();
+            return new MatchDTO(match);
+        }finally {
+            em.close();
+        }
+    }
+
+    public MatchDTO createMatch2(MatchDTO matchDTO, Integer location_id, Integer teamid1, Integer teamid2) throws NotFoundException{
+        EntityManager em = emf.createEntityManager();
+        try{
+            Location location = em.find(Location.class, location_id);
+            if(location == null){
+                throw new NotFoundException("there is no location with the given id");
+            }
+            Team team1 = em.find(Team.class, teamid1);
+            if(team1 == null){
+                throw new NotFoundException("there is no team with the id " + teamid1);
+            }
+            Team team2 = em.find(Team.class, teamid1);
+            if(team2 == null){
+                throw new NotFoundException("there is no team with the id " + teamid2);
+            }
+
+            Match match = new Match(matchDTO.getJudge(), matchDTO.getType(), matchDTO.getIndoors_outdoors(), location);
+            location.addMatch(match);
+            match.addTeam(team1);
+            match.addTeam(team2);
 
             em.getTransaction().begin();
             em.persist(match);
@@ -103,8 +130,21 @@ public class MatchFacade {
             em.close();
         }
     }
-    //add players to team
+    //create location -us4
+    public LocationDTO createLocation(LocationDTO locationDTO){
+        EntityManager em = emf.createEntityManager();
+        try{
+            Location location = new Location(locationDTO.getName(), locationDTO.getAddress(), locationDTO.getCity(), locationDTO.getCondition());
+            em.getTransaction().begin();
+            em.persist(location);
+            em.getTransaction().commit();
+            return new LocationDTO(location);
+        }finally {
+            em.close();
+        }
+    }
 
+    //add players to team
     public TeamDTO addPlayerToTeam(Integer playerId, Integer teamId) throws Exception{
         EntityManager em = emf.createEntityManager();
         try{
@@ -130,7 +170,7 @@ public class MatchFacade {
             em.close();
         }
     }
-    //lav en liste i frontend, evt vis alle mulige og en knap ud fra deres navn
+    //lav en liste i frontend, evt vis alle mulige og en knap ud fra deres navn ala radio button
     public TeamDTO addMulPlayersToTeam(List<Player> players, Integer teamId){
         EntityManager em = emf.createEntityManager();
         try{
@@ -150,13 +190,46 @@ public class MatchFacade {
         }
     }
 
-    //create location -us4
-    //delete player - us7
-    //all players
-    //update match - add teams -us5
-    //match on location - us3
-
 
     //assigned matched- us2
+    //denne er baseret på teans i stedet for personer
+    public List<MatchDTO> seeMatchesForTeam(Integer teamId){
+        EntityManager em = emf.createEntityManager();
+        try{
+            em.getTransaction().begin();
+            TypedQuery<Team> query = em.createQuery("SELECT t FROM Team t WHERE t.id=:teamId ", Team.class);
+            query.setParameter("teamId", teamId);
+            Team team = query.getSingleResult();
+            List<MatchDTO> teamMatches = MatchDTO.getDTOS(team.getMatches());
+            em.getTransaction().commit();
+            return teamMatches;
+        }finally {
+            em.close();
+        }
+    }
+
+
+
+    //update match - add teams -us5
+
+
+
+    //delete player - us7
+   /* public void deletePlayer(Integer playerId){
+        EntityManager em = emf.createEntityManager();
+        try{
+            em.find(Player.class, playerId);
+            em.getTransaction().begin();
+            TypedQuery <Player> query = em.createQuery("DELETE FROM Player p WHERE p.id = :id", Player.class);
+            em.getTransaction().commit();
+        }finally {
+            em.close();
+        }
+    }*/
+
+    //all players
+
+    //match on location - us3
+
     //big update on match
 }
