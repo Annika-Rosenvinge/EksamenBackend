@@ -3,14 +3,16 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.MatchDTO;
+import dtos.PlayerDTO;
+import dtos.TeamDTO;
+import entities.Team;
+import errorhandling.NotFoundException;
 import facades.MatchFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.persistence.PostLoad;
+import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.List;
 
@@ -39,4 +41,35 @@ public class MatchResource {
         List<MatchDTO> matchDTOList = FACADE.seeAllMatches();
         return GSON.toJson(matchDTOList);
     }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/createplayer/{id}")
+    public String createPlayer(@PathParam("id") String player, Integer id) throws NotFoundException {
+        PlayerDTO playerDTO = GSON.fromJson(player, PlayerDTO.class);
+        PlayerDTO created = FACADE.createPlayer(playerDTO, id);
+        return GSON.toJson(created);
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/creatematch/{id}")
+    public String createMatch(@PathParam("id") String match, Integer id) throws NotFoundException {
+        MatchDTO matchDTO= GSON.fromJson(match, MatchDTO.class);
+        MatchDTO created = FACADE.createMatch(matchDTO, id);
+        return GSON.toJson(created);
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/createteam")
+    public String createTest(String team){
+        TeamDTO teamDTO = GSON.fromJson(team, TeamDTO.class);
+        TeamDTO created = FACADE.createTeam(teamDTO);
+        return GSON.toJson(created);
+    }
+
 }

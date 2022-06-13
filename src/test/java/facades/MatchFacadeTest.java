@@ -1,6 +1,8 @@
 package facades;
 
+import dtos.MatchDTO;
 import dtos.PlayerDTO;
+import dtos.TeamDTO;
 import entities.Location;
 import entities.Match;
 import entities.Player;
@@ -66,6 +68,7 @@ public class MatchFacadeTest {
     public void seeAllMatchesTest(){
         int expected = 1;
         int actual = MATCHFACADE.seeAllMatches().size();
+
         assertEquals(expected, actual);
         System.out.println(expected + actual);
     }
@@ -75,6 +78,25 @@ public class MatchFacadeTest {
         PlayerDTO playerDTO = new PlayerDTO("hans", 3084, "email", "død");
         String expected = playerDTO.getName();
         String actual = MATCHFACADE.createPlayer(playerDTO, team.getId()).getName();
+
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void createMatchTest() throws NotFoundException{
+        MatchDTO matchDTO = new MatchDTO("Ingen", "test", "udenfor");
+        String expected = matchDTO.getJudge();
+        String actual = MATCHFACADE.createMatch(matchDTO, location.getId()).getJudge();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void createTeamTest(){
+        TeamDTO teamDTO = new TeamDTO("Fede finn og foldbold bois", "Roskilde");
+        String expected = teamDTO.getName();
+        String actual = MATCHFACADE.createTeam(teamDTO).getName();
+
+        assertEquals(expected,actual);
     }
 }

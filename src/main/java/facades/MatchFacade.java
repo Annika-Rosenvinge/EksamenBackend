@@ -1,10 +1,7 @@
 package facades;
 
-import dtos.MatchDTO;
-import dtos.PlayerDTO;
-import entities.Match;
-import entities.Player;
-import entities.Team;
+import dtos.*;
+import entities.*;
 import errorhandling.NotFoundException;
 
 import javax.persistence.EntityManager;
@@ -51,7 +48,7 @@ public class MatchFacade {
         }
     }
 
-    //create player
+    //create player - us4
     public PlayerDTO createPlayer(PlayerDTO playerDTO, Integer team_id) throws NotFoundException {
         EntityManager em = emf.createEntityManager();
         try{
@@ -73,11 +70,48 @@ public class MatchFacade {
 
     }
 
-    //create match
+    //create match - us4
+    public MatchDTO createMatch(MatchDTO matchDTO, Integer location_id) throws NotFoundException{
+        EntityManager em = emf.createEntityManager();
+        try{
+            Location location = em.find(Location.class, location_id);
+            if(location == null){
+                throw new NotFoundException("there is no location with the given id");
+            }
+            Match match = new Match(matchDTO.getJudge(), matchDTO.getType(), matchDTO.getIndoors_outdoors(), location);
+            location.addMatch(match);
 
-    //create team
-    //create location
-    //delete player
-    //update match
-    //match on location
+            em.getTransaction().begin();
+            em.persist(match);
+            em.getTransaction().commit();
+            return new MatchDTO(match);
+        }finally {
+            em.close();
+        }
+    }
+
+    //create team - us4
+    public TeamDTO createTeam(TeamDTO teamDTO){
+        EntityManager em = emf.createEntityManager();
+        try{
+            Team team = new Team(teamDTO.getName(), teamDTO.getPlace());
+            em.getTransaction().begin();
+            em.persist(team);
+            em.getTransaction().commit();
+            return new TeamDTO(team);
+        }finally {
+            em.close();
+        }
+    }
+    //add players to team
+    
+    //create location -us4
+    //delete player - us7
+    //all players
+    //update match - add teams -us5
+    //match on location - us3
+
+
+    //assigned matched- us2
+    //big update on match
 }

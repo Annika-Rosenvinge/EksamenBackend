@@ -75,4 +75,15 @@ public class MatchRestTest {
                 .statusCode(200);
     }
 
+    /*
+    @Test
+    public void createPlayerTest(){
+        given()
+                .when()
+                .get("/maches/createplayer").then()
+                .statusCode(200);
+    }*/
+
+
+
 }
