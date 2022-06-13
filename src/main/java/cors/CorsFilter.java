@@ -44,6 +44,7 @@ public class CorsFilter implements ContainerRequestFilter, ContainerResponseFilt
                     // you want the client to be able to send to the server,
                     // put it in this list. And remove the ones you don't want.
                     "Origin, Accept, Content-Type, Authorization,x-access-token");
+            response.getHeaders().add("Access-Control-Allow-Origin", "*");
         }
 
     /* Cross origin requests can be either simple requests or preflight request. We need to add this
