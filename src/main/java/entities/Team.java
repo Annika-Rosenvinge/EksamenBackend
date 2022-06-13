@@ -49,8 +49,6 @@ public class Team {
         this.playersOnTeam = playersOnTeam;
         this.matches = matches;
     }
-
-
     //add function
     public void addPlayer(Player player){
         playersOnTeam.add(player);
