@@ -104,7 +104,47 @@ public class MatchFacade {
         }
     }
     //add players to team
-    
+    /*
+    public TeamDTO addPlayerToTeam(Integer playerId, Integer teamId) throws Exception{
+        EntityManager em = emf.createEntityManager();
+        try{
+            Player player = em.find(Player.class, playerId);
+            if(player == null){
+                throw new NotFoundException("There is no player with his name");
+            }
+            if(player.getTeam() != null){
+                throw new Exception("The player already has a team");
+            }
+            Team team = em.find(Team.class, teamId);
+            if (team == null){
+                throw new NotFoundException("There is no team with this id");
+            }
+            team.addPlayer(player);
+            player.setTeam(team);
+            em.getTransaction().begin();
+            em.merge(team);
+            em.merge(player);
+            em.getTransaction().commit();
+            return new TeamDTO(team);
+        }finally {
+            em.close();
+        }
+    }
+    //lav en liste i frontend, evt vis alle mulige og en knap ud fra deres navn
+    public TeamDTO addMulPlayersToTeam(List<Player> players, Integer teamId){
+        EntityManager em = emf.createEntityManager();
+        try{
+            Team team = em.find(Team.class,teamId);
+            for(int i = 0; i<players.size(); i++ ){
+                Player player = em.find(Player.class, players.get(i).getId());
+                team.addPlayer(player);
+            }
+            return null;
+        }finally {
+            em.close();
+        }
+    }*/
+
     //create location -us4
     //delete player - us7
     //all players
