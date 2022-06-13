@@ -23,7 +23,8 @@ import org.junit.jupiter.api.Test;
 import utils.EMF_Creator;
 
 //Disabled
-public class LoginEndpointTest {
+//disse virker stadig
+public class ResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
@@ -83,7 +84,6 @@ public class LoginEndpointTest {
             em.persist(user);
             em.persist(admin);
             em.persist(both);
-            //System.out.println("Saved test data to database");
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -100,11 +100,9 @@ public class LoginEndpointTest {
         securityToken = given()
                 .contentType("application/json")
                 .body(json)
-                //.when().post("/api/login")
                 .when().post("/login")
                 .then()
                 .extract().path("token");
-        //System.out.println("TOKEN ---> " + securityToken);
     }
 
     private void logOut() {
@@ -187,8 +185,5 @@ public class LoginEndpointTest {
                 .body("code", equalTo(403))
                 .body("message", equalTo("Not authenticated - do login"));
     }
-
-
-
 
 }

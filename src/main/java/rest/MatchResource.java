@@ -75,7 +75,7 @@ public class MatchResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/seematchesforteam/{id}")
+    @Path("/seeforteam/{id}")
     public String seeMatchesForTeam(@PathParam("id") Integer id){
         List<MatchDTO> matchDTOList = FACADE.seeMatchesForTeam(id);
         return GSON.toJson(matchDTOList);

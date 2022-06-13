@@ -7,8 +7,6 @@
         <class>entities.Team</class>
         <class>entities.Match</class>
         <class>entities.Location</class>
-        <!--<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
-        <!--    <class>entities.RenameMe</class>-->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <!-- DO NOT remove the line below. It's not set by the  entityUtils.EMF_Creator -->

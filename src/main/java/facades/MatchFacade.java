@@ -33,7 +33,7 @@ public class MatchFacade {
     public List<MatchDTO> seeAllMatches() throws EntityNotFoundException {
         EntityManager em = emf.createEntityManager();
         try{
-            em.getTransaction().begin();
+            //em.getTransaction().begin();
 
             TypedQuery <Match> typedQuery = em.createQuery("SELECT m FROM Match m", Match.class);
             List<Match> matches = typedQuery.getResultList();
@@ -42,7 +42,7 @@ public class MatchFacade {
             for (Match m : matches){
                 matchDTOS.add(new MatchDTO(m));
             }
-            em.getTransaction().commit();
+            //em.getTransaction().commit();
             return matchDTOS;
         }finally {
             em.close();
@@ -193,27 +193,28 @@ public class MatchFacade {
 
     //assigned matched- us2
     //denne er baseret på teans i stedet for personer
+    //StackOverflowError in integrationstest
+    //Unit virker med og uden try finally
     public List<MatchDTO> seeMatchesForTeam(Integer teamId){
         EntityManager em = emf.createEntityManager();
-        try{
-            em.getTransaction().begin();
+        //try{
+            //em.getTransaction().begin();
             TypedQuery<Team> query = em.createQuery("SELECT t FROM Team t WHERE t.id=:teamId ", Team.class);
             query.setParameter("teamId", teamId);
             Team team = query.getSingleResult();
-            List<MatchDTO> teamMatches = MatchDTO.getDTOS(team.getMatches());
-            em.getTransaction().commit();
-            return teamMatches;
-        }finally {
+        //em.getTransaction().commit();
+            return MatchDTO.getDTOS(team.getMatches());
+        /*}finally {
             em.close();
-        }
+        }*/
     }
 
-
-
     //update match - add teams -us5
+    //find match
+    //find team
+    //add team to match
 
-
-
+    
     //delete player - us7
    /* public void deletePlayer(Integer playerId){
         EntityManager em = emf.createEntityManager();

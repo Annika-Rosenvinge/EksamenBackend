@@ -71,7 +71,10 @@ public class MatchFacadeTest {
         team1 = new Team("Friske Røde", "Solbjerg idrætshus");
         try{
             em.getTransaction().begin();
-            em.createNamedQuery("Match.deleteAll", Match.class);
+            em.createQuery("DELETE FROM Player", Player.class).executeUpdate();
+            em.createQuery("DELETE FROM Team", Team.class).executeUpdate();
+            em.createNamedQuery("Match.deleteAll", Match.class).executeUpdate();
+            em.createQuery("DELETE FROM Location ", Location.class).executeUpdate();
 
             em.persist(match);
             em.persist(location);
