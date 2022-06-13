@@ -104,7 +104,7 @@ public class MatchFacade {
         }
     }
     //add players to team
-    /*
+
     public TeamDTO addPlayerToTeam(Integer playerId, Integer teamId) throws Exception{
         EntityManager em = emf.createEntityManager();
         try{
@@ -134,16 +134,21 @@ public class MatchFacade {
     public TeamDTO addMulPlayersToTeam(List<Player> players, Integer teamId){
         EntityManager em = emf.createEntityManager();
         try{
+            em.getTransaction().begin();
             Team team = em.find(Team.class,teamId);
             for(int i = 0; i<players.size(); i++ ){
                 Player player = em.find(Player.class, players.get(i).getId());
                 team.addPlayer(player);
+                player.setTeam(team);
+                em.merge(team);
+                em.merge(player);
             }
-            return null;
+            em.getTransaction().commit();
+            return new TeamDTO(team);
         }finally {
             em.close();
         }
-    }*/
+    }
 
     //create location -us4
     //delete player - us7

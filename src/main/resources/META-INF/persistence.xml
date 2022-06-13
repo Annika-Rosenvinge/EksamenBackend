@@ -7,7 +7,7 @@
         <class>entities.Team</class>
         <class>entities.Match</class>
         <class>entities.Location</class>
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <!--<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
         <!--    <class>entities.RenameMe</class>-->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
@@ -26,8 +26,8 @@
             
             <!-- In PRODUCTION the values below, will be overriden by utils.EMF_Creator -->
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/eksamen?serverTimezone=UTC"/>
-            <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="Sommerfugl24"/>
+            <property name="javax.persistence.jdbc.user" value="dev"/>
+            <property name="javax.persistence.jdbc.password" value="ax2"/>
             
         </properties>
     </persistence-unit>

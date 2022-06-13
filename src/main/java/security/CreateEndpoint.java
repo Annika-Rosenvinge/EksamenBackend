@@ -14,6 +14,7 @@ import entities.User;
 import errorhandling.API_Exception;
 import errorhandling.GenericExceptionMapper;
 import facades.UserFacade;
+import org.junit.jupiter.api.Disabled;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Disabled
 @Path("create")
 public class CreateEndpoint {
     public static final int TOKEN_EXPIRE_TIME = 1000 * 60 * 30; //30 min

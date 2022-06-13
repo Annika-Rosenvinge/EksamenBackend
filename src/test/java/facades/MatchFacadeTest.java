@@ -26,6 +26,11 @@ public class MatchFacadeTest {
     Player player;
     Team team;
 
+    //ekstra players til players to team test
+    Player player1;
+    Player player2;
+    Player player3;
+    Player player4;
     public MatchFacadeTest(){
 
     }
@@ -40,7 +45,7 @@ public class MatchFacadeTest {
     @BeforeEach
     public void setUp(){
         EntityManager em = emf.createEntityManager();
-        //hvad hedder en man med 2 nn/ænder... Finn
+        //base
         match = new Match("Finn Andersen", "Træningskamp", "outdoor");
         match2 = new Match("Cliff Mogensen", "Afslutningskamp", "indoor");
         location = new Location("DGI byen", "ved Hovedbanen", "københavn", "Fine");
@@ -49,6 +54,12 @@ public class MatchFacadeTest {
 
         team.addPlayer(player);
         player.setTeam(team);
+
+        //ekstra players til players to team test
+        player1 = new Player("Sofie", 28732, "mail", "aktiv");
+        player2 = new Player("Katt", 782434, "mail", "aktiv");
+        player3 = new Player("Vladimir", 9879687, "mail", "aktiv");
+        player4 = new Player("Maria", 234525, "maik", "aktiv");
         try{
             em.getTransaction().begin();
             em.createNamedQuery("Match.deleteAll", Match.class);
@@ -57,6 +68,11 @@ public class MatchFacadeTest {
             em.persist(location);
             em.persist(player);
             em.persist(team);
+
+            em.persist(player1);
+            em.persist(player2);
+            em.persist(player3);
+            em.persist(player4);
 
             em.getTransaction().commit();
         }finally {
@@ -90,7 +106,7 @@ public class MatchFacadeTest {
 
         assertEquals(expected, actual);
     }
-
+/*
     @Test
     public void createTeamTest(){
         TeamDTO teamDTO = new TeamDTO("Fede finn og foldbold bois", "Roskilde");
@@ -99,4 +115,14 @@ public class MatchFacadeTest {
 
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void addPlayerToTeamTest() throws Exception {
+        Integer playerId = player1.getId();;
+        Integer teamId = team.getId();
+
+        String expected = team.getName();
+        TeamDTO teamDTO = MATCHFACADE.addPlayerToTeam(playerId, teamId);
+        String actual = teamDTO.getName();
+    }*/
 }
