@@ -28,6 +28,12 @@ public class MatchResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    public String getInfoForAll() {
+        return "{\"msg\":\"Hello anonymous\"}";
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/all")
     public String allMatches(){
         List<MatchDTO> matchDTOList = FACADE.seeAllMatches();
