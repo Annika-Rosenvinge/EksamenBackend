@@ -209,12 +209,26 @@ public class MatchFacade {
         }*/
     }
 
-    //update match - add teams -us5
-    //find match
-    //find team
-    //add team to match
+    //update match - add teams -us5 halv
+    public MatchDTO addTeamToMatch(Integer teamid, Integer matchid){
+        EntityManager em = emf.createEntityManager();
+        try{
+            em.getTransaction().begin();
+            Team team = em.find(Team.class, teamid);
+            Match match = em.find(Match.class, matchid);
+            match.addTeam(team);
+            em.merge(match);
+            em.getTransaction().commit();
+            return new MatchDTO(match);
+        }
+        finally {
+            em.close();
+        }
+    }
 
-    
+    //update MatchInfoLocation
+
+
     //delete player - us7
    /* public void deletePlayer(Integer playerId){
         EntityManager em = emf.createEntityManager();
@@ -231,6 +245,4 @@ public class MatchFacade {
     //all players
 
     //match on location - us3
-
-    //big update on match
 }

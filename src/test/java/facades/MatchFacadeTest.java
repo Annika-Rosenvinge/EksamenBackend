@@ -182,4 +182,14 @@ public class MatchFacadeTest {
         assertEquals(expected, actual);
         System.out.println(expected + " " + actual);
     }
+
+    @Disabled
+    @Test
+    public void addTeamToMatch(){
+        String expected = team1.getName();
+        MatchDTO matchDTO = MATCHFACADE.addTeamToMatch(team1.getId(), match.getId());
+        Integer bound= matchDTO.getTeams().size();
+        Team team2 = matchDTO.getTeams().get(bound-1);
+        String actual = team2.getName();
+    }
 }
